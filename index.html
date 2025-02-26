@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Other AirPod</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        #container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        #airpod2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: none;
+        }
+
+        #message {
+            display: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h2>Find the other one</h2>
+        <img id="airpod1" src="airpod.jpg" alt="AirPod" onclick="startChallenge()">
+        <img id="airpod2" src="airpod2.jpg" alt="Second AirPod" onclick="catchAirpod()">
+        <p id="message"></p>
+    </div>
+
+    <script>
+        let airpod2 = document.getElementById("airpod2");
+        let message = document.getElementById("message");
+        let interval;
+
+        function startChallenge() {
+            airpod2.style.display = "block";
+            moveAirpod();
+            interval = setInterval(moveAirpod, 1000);
+        }
+
+        function moveAirpod() {
+            let maxX = window.innerWidth - 120;
+            let maxY = window.innerHeight - 120;
+            let randomX = Math.floor(Math.random() * maxX);
+            let randomY = Math.floor(Math.random() * maxY);
+
+            airpod2.style.left = randomX + "px";
+            airpod2.style.top = randomY + "px";
+        }
+
+        function catchAirpod() {
+            clearInterval(interval);
+            airpod2.style.cursor = "default";
+
+            let printing = "YW5kcm9pZF9zaW1w";
+            let view = atob(printing);
+
+            message.style.display = "block";
+            message.textContent = `${view}`;
+        }
+    </script>
+</body>
+
+</html>
