@@ -60,7 +60,7 @@
     </style>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
     <div id="container">
         <h2>Find the other one</h2>
         <img id="airpod1" src="airpod.png" alt="AirPod" onclick="startChallenge()">
@@ -70,6 +70,12 @@
     </div>
 
     <script>
+        document.addEventListener('keydown', function (e) {
+            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I") || (e.ctrlKey && e.key === "U")) {
+                e.preventDefault();
+            }
+        });
+
         let airpod2 = document.getElementById("airpod2");
         let message = document.getElementById("message");
         let timerElement = document.getElementById("timer");
@@ -85,16 +91,13 @@
         }
 
         function moveAirpod() {
-    let maxX = window.innerWidth - airpod2.clientWidth;
-    let maxY = window.innerHeight - airpod2.clientHeight;
-
-    let randomX = Math.random() * maxX;
-    let randomY = Math.random() * maxY;
-
-    airpod2.style.left = `${randomX}px`;
-    airpod2.style.top = `${randomY}px`;
-}
-
+            let maxX = window.innerWidth - airpod2.clientWidth;
+            let maxY = window.innerHeight - airpod2.clientHeight;
+            let randomX = Math.random() * maxX;
+            let randomY = Math.random() * maxY;
+            airpod2.style.left = `${randomX}px`;
+            airpod2.style.top = `${randomY}px`;
+        }
 
         function updateTimer() {
             timeLeft--;
@@ -113,13 +116,10 @@
             clearInterval(interval);
             clearInterval(countdown);
             airpod2.style.cursor = "default";
-
             let printing = "YW5kcm9pZF9zaW1w";
             let view = atob(printing);
-
             message.style.display = "block";
             message.innerHTML = `<span style="color: yellow;">${view}</span>`;
-
             playSound('win.wav');
         }
 
