@@ -33,8 +33,8 @@
 
         #airpod2 {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: 0;
             display: none;
             transition: all 0.5s ease;
             filter: drop-shadow(0 0 10px #58a6ff);
@@ -85,14 +85,16 @@
         }
 
         function moveAirpod() {
-            let maxX = window.innerWidth - airpod2.clientWidth;
-            let maxY = window.innerHeight - airpod2.clientHeight;
+    let maxX = window.innerWidth - airpod2.clientWidth;
+    let maxY = window.innerHeight - airpod2.clientHeight;
 
-            let randomX = Math.random() * maxX;
-            let randomY = Math.random() * maxY;
+    let randomX = Math.random() * maxX;
+    let randomY = Math.random() * maxY;
 
-            airpod2.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        }
+    airpod2.style.left = `${randomX}px`;
+    airpod2.style.top = `${randomY}px`;
+}
+
 
         function updateTimer() {
             timeLeft--;
